@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyDict.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220822034308_init")]
+    [Migration("20220822092109_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace MyDict.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MyDict.Data.Word", b =>
+            modelBuilder.Entity("MyDict.Model.WordModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

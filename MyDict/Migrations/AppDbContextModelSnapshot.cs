@@ -22,7 +22,7 @@ namespace MyDict.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MyDict.Data.Word", b =>
+            modelBuilder.Entity("MyDict.Model.WordModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

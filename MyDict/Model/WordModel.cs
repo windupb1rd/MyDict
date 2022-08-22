@@ -23,17 +23,7 @@ namespace MyDict.Model
         public string? Example4 { get; set; }
         public string? Example5 { get; set; }
         public string? Translations { get; set; }
-        public DateTime NextReview { get; private set; }
-        public bool IsOnLearning { get; private set; }
-
-        public void CalculateNextReviewDate()
-        {
-            NextReview = DateTime.Now;
-        }
-
-        public void SetStatus()
-        {
-            IsOnLearning = true;
-        }
+        public DateTime NextReview { get; set; }
+        public bool IsOnLearning { get; set; }
     }
 }
