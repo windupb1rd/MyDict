@@ -1,39 +1,84 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using ConsoleDictionary;
+using Microsoft.EntityFrameworkCore;
+using MyDict.Model;
+using System.Reflection;
 
-namespace MyDict.Data
+namespace MyDict
 {
     public class Word
     {
-        public int Id { get; set; }
+        private readonly WordCard _wordCard;
+        private readonly AppDbContext _context;
+        private readonly string _query;
+        private int _id;
 
-        [StringLength(50)]
-        public string EnglishWord { get; set; }
-
-        [StringLength(50)]
-        public string? Transcription { get; set; }
-        public string? Definition1 { get; set; }
-        public string? Definition2 { get; set; }
-        public string? Definition3 { get; set; }
-        public string? Definition4 { get; set; }
-        public string? Definition5 { get; set; }
-        public string? Example1 { get; set; }
-        public string? Example2 { get; set; }
-        public string? Example3 { get; set; }
-        public string? Example4 { get; set; }
-        public string? Example5 { get; set; }
-        public string? Translations { get; set; }
-        public DateTime NextReview { get; private set; }
-        public bool IsOnLearning { get; private set; }
-
-        public void CalculateNextReviewDate()
+        public Word(string query)
         {
-            NextReview = DateTime.Now;
+            _wordCard = new WordCard();
+            _context = new AppDbContext();
+            _query = query;
         }
 
-        public void SetStatus()
+        /// <summary>
+        /// Вывод слова в консоль
+        /// </summary>
+        public void PrintWord()
         {
-            IsOnLearning = true;
+            if (_wordCard != null)
+                new WordToConsolePrinter().Print(_wordCard);
+        }
+
+        public void SearchWordInDb()
+        {
+            var wordQuery = _context.words.Select(w => w).Where(w => w.EnglishWord == _query);
+            if (wordQuery.Count() == 0)
+            {
+                Console.WriteLine("empty result");
+            }
+            else
+            {
+                _id = wordQuery.First().Id;
+                Console.WriteLine(_id);
+            }
+        }
+
+        public void SearchWordInApi()
+        {
+
+        }
+
+        public void CreateCard()
+        {
+            var w = new WordModel();
+            w.EnglishWord = _wordCard.Word;
+            w.Transcription = _wordCard.Pronunciation;
+
+            foreach (var def in _wordCard.Definitions)
+            {
+                for (int i = 0; i < _wordCard.Definitions[def.Key].Count; i++)
+                {
+                    string propName = $"Definition{i + 1}";
+                    var splitDefAndEx = def.Value[i].Split("\n\t");
+                    if (w.GetType().GetProperty(propName).GetValue(w) == null)
+                    {
+                        w.GetType().GetProperty(propName).SetValue(w, $"{def.Key} | {splitDefAndEx[0]}");
+                        w.GetType().GetProperty($"Example{i+1}").SetValue(w, $"{splitDefAndEx[1]}");
+                    }
+                }
+            }
+
+            _context.Add(w);
+            _context.SaveChanges();
+        }
+
+        public void FetchWord()
+        {
+
+        }
+
+        private void DeleteWord()
+        {
+            
         }
     }
 }

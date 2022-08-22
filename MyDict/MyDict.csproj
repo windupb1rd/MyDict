@@ -16,4 +16,10 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ConsoleDictionary">
+      <HintPath>ConsoleDictionary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

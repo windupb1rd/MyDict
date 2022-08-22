@@ -14,7 +14,10 @@ namespace MyDict.Pages
 
         public void OnGet()
         {
-
+            var w = new MyDict.Word("hi");
+            //w.PrintWord();
+            //w.CreateCard();
+            w.SearchWordInDb();
         }
     }
 }

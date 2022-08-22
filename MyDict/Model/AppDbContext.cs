@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace MyDict.Data
+namespace MyDict.Model
 {
     public class AppDbContext : DbContext
     {
@@ -10,6 +10,6 @@ namespace MyDict.Data
             optionsBuilder.UseNpgsql(@"host=localhost;port=5432;database=mydict;username=postgres;password=postgres");
             //.LogTo(Console.WriteLine);
         }
-            public DbSet<Word> words { get; set; }
+        public DbSet<WordModel> words { get; set; }
     }
 }
