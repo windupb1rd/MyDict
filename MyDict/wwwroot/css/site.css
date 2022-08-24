@@ -16,3 +16,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.rounded-my {
+    border-radius: 5%;
+    padding: 0.6%;
+}
+
+.shadow-my {
+    box-shadow: 0 0 10px black;
+}
+
+.align-my {
+    text-align: center;
+}
+
+.card:hover {
+    background-color: azure;
+}
