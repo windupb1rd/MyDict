@@ -29,6 +29,9 @@ namespace MyDict
             app.MapRazorPages();
 
             app.Run();
+
+            // код ниже для тестов
+
         }
     }
 }
