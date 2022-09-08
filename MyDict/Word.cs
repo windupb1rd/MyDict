@@ -11,7 +11,6 @@ namespace MyDict
         private WordCard _wordCard;
         private WordModel _wordInstance;
         private readonly string _query;
-        //private int _id;
 
         public Word(string query)
         {
@@ -24,7 +23,6 @@ namespace MyDict
             _wordInstance = _context.words.Where(w => w.EnglishWord == _query).FirstOrDefault();
             if (_wordInstance != null)
             {
-                //_id = _wordInstance.Id;
                 Console.WriteLine($"Слово {_wordInstance.EnglishWord} было найдено в БД. ID = {_wordInstance.Id}"); // debug
             }
             else
@@ -101,6 +99,11 @@ namespace MyDict
         public void SetStatus()
         {
             _wordInstance.IsOnLearning = true;
+        }
+
+        public WordCard GetWordCardData()
+        {
+            return _wordCard;
         }
     }
 }
